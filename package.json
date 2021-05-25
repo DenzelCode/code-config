@@ -1,0 +1,17 @@
+{
+  "name": "code-config",
+  "version": "1.0.0",
+  "description": "type friendly json configuration file management",
+  "main": "dist/index.js",
+  "types": "dist/index.d.js",
+  "repository": "https://github.com/DenzelCode/code-config",
+  "author": "Denzel Code",
+  "license": "MIT",
+  "dependencies": {
+    "lodash": "^4.17.21"
+  },
+  "devDependencies": {
+    "@types/lodash": "^4.14.170",
+    "@types/node": "^15.6.1"
+  }
+}
