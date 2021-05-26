@@ -112,6 +112,10 @@ export class Config<T = Dictionary> implements ConfigDefinition<T> {
     }
   }
 
+  setAll(values: T) {
+    this.apply(values);
+  }
+
   isValidKey(key: string): boolean {
     return !key.startsWith('_') && typeof (this as Dictionary)[key] !== 'function';
   }
