@@ -4,7 +4,9 @@ import { Dictionary } from '../types';
 import { ConfigInterface } from './config.interface';
 
 export class Config<T = Dictionary> implements ConfigInterface<T> {
-  constructor(private _path: string, private _defaultValues?: T) {}
+  constructor(private _path: string, private _defaultValues?: T) {
+    this.apply(_defaultValues);
+  }
 
   init(create: boolean = true): T & ConfigInterface<T> {
     this.apply(this._defaultValues);
