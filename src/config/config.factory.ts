@@ -2,7 +2,7 @@ import { ConfigDefinition, Dictionary } from '../types';
 import { Config } from './config';
 
 export class ConfigFactory {
-  private static storage: Dictionary<Config<any>>;
+  private static storage: Dictionary<Config<any>> = {};
 
   static getConfig<T extends Object = Dictionary>(
     path: string,
