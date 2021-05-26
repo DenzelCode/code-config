@@ -1,20 +1,20 @@
 import { existsSync, readFileSync, writeFileSync } from 'fs';
 import { get, set, defaults } from 'lodash';
 import { Dictionary } from '../types';
-import { ConfigDefinition } from './config.interface';
+import { ConfigInterface } from './config.interface';
 
-export class Config<T = Dictionary> implements ConfigDefinition<T> {
+export class Config<T = Dictionary> implements ConfigInterface<T> {
   constructor(private _path: string, private _defaultValues?: T) {}
 
-  init(create: boolean = true): T & ConfigDefinition<T> {
+  init(create: boolean = true): T & ConfigInterface<T> {
     this.apply(this._defaultValues);
 
     this.load(create);
 
-    return this as unknown as T & ConfigDefinition<T>;
+    return this as unknown as T & ConfigInterface<T>;
   }
 
-  load(create: boolean = true): T & ConfigDefinition<T> {
+  load(create: boolean = true): T & ConfigInterface<T> {
     try {
       let exists = this.exists();
 
@@ -35,7 +35,7 @@ export class Config<T = Dictionary> implements ConfigDefinition<T> {
       console.error('An error occurred parsing the config file', this._path, e);
     }
 
-    return this as unknown as T & ConfigDefinition<T>;
+    return this as unknown as T & ConfigInterface<T>;
   }
 
   get(key: string) {
@@ -46,19 +46,19 @@ export class Config<T = Dictionary> implements ConfigDefinition<T> {
     return get(this, key);
   }
 
-  set(key: string, value: T): T & ConfigDefinition<T> {
+  set(key: string, value: T): T & ConfigInterface<T> {
     if (!this.isValidKey(key)) {
-      return this as unknown as T & ConfigDefinition<T>;
+      return this as unknown as T & ConfigInterface<T>;
     }
 
     set(this, key, value);
 
-    return this as unknown as T & ConfigDefinition<T>;
+    return this as unknown as T & ConfigInterface<T>;
   }
 
-  remove(key: string): T & ConfigDefinition<T> {
+  remove(key: string): T & ConfigInterface<T> {
     if (!this.isValidKey(key)) {
-      return this as unknown as T & ConfigDefinition<T>;
+      return this as unknown as T & ConfigInterface<T>;
     }
 
     const properties = key.split('.');
@@ -85,10 +85,10 @@ export class Config<T = Dictionary> implements ConfigDefinition<T> {
       values = values[segment];
     });
 
-    return this as unknown as T & ConfigDefinition<T>;
+    return this as unknown as T & ConfigInterface<T>;
   }
 
-  clear(): T & ConfigDefinition<T> {
+  clear(): T & ConfigInterface<T> {
     for (const key in this) {
       if (!this.isValidKey(key)) {
         continue;
@@ -97,7 +97,7 @@ export class Config<T = Dictionary> implements ConfigDefinition<T> {
       this.remove(key);
     }
 
-    return this as unknown as T & ConfigDefinition<T>;
+    return this as unknown as T & ConfigInterface<T>;
   }
 
   private apply(object: Dictionary): void {
@@ -120,10 +120,10 @@ export class Config<T = Dictionary> implements ConfigDefinition<T> {
     return !key.startsWith('_') && typeof (this as Dictionary)[key] !== 'function';
   }
 
-  save(): T & ConfigDefinition<T> {
+  save(): T & ConfigInterface<T> {
     writeFileSync(this._path, this.toJSON());
 
-    return this as unknown as T & ConfigDefinition<T>;
+    return this as unknown as T & ConfigInterface<T>;
   }
 
   toJSON(): string {

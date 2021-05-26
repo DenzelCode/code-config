@@ -1,19 +1,21 @@
 import { Dictionary } from '../types';
 
-export interface ConfigDefinition<T = Dictionary> {
+export interface ConfigInterface<T = Dictionary> {
   get(key: string): any;
 
-  init(create?: boolean): T & ConfigDefinition<T>;
+  init(create?: boolean): T & ConfigInterface<T>;
 
-  set(key: string, value: T): T & ConfigDefinition<T>;
+  set(key: string, value: T): T & ConfigInterface<T>;
 
-  save(): T & ConfigDefinition<T>;
+  save(): T & ConfigInterface<T>;
 
-  remove(key: string): T & ConfigDefinition<T>;
+  remove(key: string): T & ConfigInterface<T>;
 
-  clear(): T & ConfigDefinition<T>;
+  clear(): T & ConfigInterface<T>;
 
   exists(): boolean;
 
   setPath(path: string, create?: boolean): void;
+
+  setAll(values: T): void;
 }
