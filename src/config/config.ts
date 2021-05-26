@@ -100,7 +100,7 @@ export class Config<T = Dictionary> implements ConfigInterface<T> {
     return this as unknown as T & ConfigInterface<T>;
   }
 
-  private apply(object: Dictionary): void {
+  apply(object: T): void {
     object = defaults(object, this._defaultValues ?? {});
 
     for (const key in object) {
@@ -110,10 +110,6 @@ export class Config<T = Dictionary> implements ConfigInterface<T> {
 
       (this as Dictionary)[key] = object[key];
     }
-  }
-
-  setAll(values: T) {
-    this.apply(values);
   }
 
   isValidKey(key: string): boolean {

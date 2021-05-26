@@ -17,5 +17,5 @@ export interface ConfigInterface<T = Dictionary> {
 
   setPath(path: string, create?: boolean): void;
 
-  setAll(values: T): void;
+  apply(values: T): void;
 }
