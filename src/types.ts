@@ -1,3 +1,7 @@
+import { ConfigInterface } from './config/config.interface';
+
 export interface Dictionary<T = any> {
-	[key: string]: T;
+  [key: string]: T;
 }
+
+export type ConfigDefinition<T> = T & ConfigInterface<T>;
