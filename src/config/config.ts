@@ -4,12 +4,12 @@ import { Dictionary } from '../types';
 import { ConfigInterface } from './config.interface';
 
 export class Config<T = Dictionary> implements ConfigInterface<T> {
-  constructor(private _path: string, private _defaultValues?: T) {
-    this.apply(_defaultValues);
+  constructor(private __path: string, private __defaultValues?: T) {
+    this.apply(__defaultValues);
   }
 
   init(create: boolean = true): T & ConfigInterface<T> {
-    this.apply(this._defaultValues);
+    this.apply(this.__defaultValues);
 
     this.load(create);
 
@@ -27,14 +27,14 @@ export class Config<T = Dictionary> implements ConfigInterface<T> {
       }
 
       if (exists) {
-        const content = readFileSync(this._path, { encoding: 'utf8' });
+        const content = readFileSync(this.__path, { encoding: 'utf8' });
 
         const json = JSON.parse(content);
 
         this.apply(json);
       }
     } catch (e) {
-      console.error('An error occurred parsing the config file', this._path, e);
+      console.error('An error occurred parsing the config file', this.__path, e);
     }
 
     return this as unknown as T & ConfigInterface<T>;
@@ -103,7 +103,7 @@ export class Config<T = Dictionary> implements ConfigInterface<T> {
   }
 
   apply(object: T): void {
-    object = defaults(object, this._defaultValues ?? {});
+    object = defaults(object, this.__defaultValues ?? {});
 
     for (const key in object) {
       if (key in this && !this.isValidKey(key)) {
@@ -115,11 +115,11 @@ export class Config<T = Dictionary> implements ConfigInterface<T> {
   }
 
   isValidKey(key: string): boolean {
-    return !key.startsWith('_') && typeof (this as Dictionary)[key] !== 'function';
+    return !key.startsWith('__') && typeof (this as Dictionary)[key] !== 'function';
   }
 
   save(): T & ConfigInterface<T> {
-    writeFileSync(this._path, this.toJSON());
+    writeFileSync(this.__path, this.toJSON());
 
     return this as unknown as T & ConfigInterface<T>;
   }
@@ -137,11 +137,11 @@ export class Config<T = Dictionary> implements ConfigInterface<T> {
   }
 
   exists(): boolean {
-    return this._path && this._path !== '.' && existsSync(this._path);
+    return this.__path && this.__path !== '.' && existsSync(this.__path);
   }
 
   setPath(path: string, create: boolean = true): void {
-    this._path = path;
+    this.__path = path;
 
     this.load(create);
   }
