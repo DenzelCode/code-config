@@ -4,7 +4,7 @@ import { Config } from './config';
 export class ConfigFactory {
   private static storage: Dictionary<Config<any>>;
 
-  static getConfig<T extends Object = Dictionary<any>>(
+  static getConfig<T extends Object = Dictionary>(
     path: string,
     defaultValues?: T,
   ): ConfigDefinition<T> {
