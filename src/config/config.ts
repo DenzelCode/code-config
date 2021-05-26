@@ -4,7 +4,7 @@ import { ConfigDefinition, Dictionary } from '../types';
 import { ConfigInterface } from './config.interface';
 
 export class Config<T = Dictionary> implements ConfigInterface<T> {
-  __isInitialized = false;
+  private __isInitialized = false;
 
   constructor(private __path: string, private __defaultValues?: T) {
     this.apply(__defaultValues);
