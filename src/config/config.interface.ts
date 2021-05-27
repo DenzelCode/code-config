@@ -17,7 +17,7 @@ export interface ConfigInterface<T = Dictionary> {
 
   setPath(path: string, create?: boolean): void;
 
-  apply(object: T): void;
+  apply(object: T): ConfigDefinition<T>;
 
   load(create: boolean): ConfigDefinition<T>;
 }
