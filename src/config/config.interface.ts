@@ -7,7 +7,9 @@ export interface ConfigInterface<T = Dictionary> {
 
   set(key: string, value: T): ConfigDefinition<T>;
 
-  save(): ConfigDefinition<T>;
+  save(prettify?: boolean): ConfigDefinition<T>;
+
+  toJSON(prettify?: boolean): string;
 
   remove(key: string): ConfigDefinition<T>;
 
