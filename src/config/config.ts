@@ -147,7 +147,11 @@ export class Config<T = Dictionary> implements ConfigInterface<T> {
       }
     }
 
-    return JSON.stringify(object, prettify ? null : undefined, prettify ? '\t' : undefined);
+    if (prettify) {
+      return JSON.stringify(object, null, '\t');
+    } else {
+      return JSON.stringify(object);
+    }
   }
 
   exists(): boolean {
