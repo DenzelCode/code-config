@@ -9,6 +9,6 @@ export class ConfigFactory {
     defaultValues?: T,
   ): ConfigDefinition<T> {
     return (this.storage[path] ||
-      new Config<T>(path, defaultValues)) as unknown as ConfigDefinition<T>;
+      (this.storage[path] = new Config<T>(path, defaultValues))) as unknown as ConfigDefinition<T>;
   }
 }
