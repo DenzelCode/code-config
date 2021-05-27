@@ -7,6 +7,7 @@ export class ConfigFactory {
   static getConfig<T extends Object = Dictionary>(
     path: string,
     defaultValues?: T,
+    prettify = false,
   ): ConfigDefinition<T> {
     return (this.storage[path] ||
       (this.storage[path] = new Config<T>(path, defaultValues))) as unknown as ConfigDefinition<T>;
