@@ -6,7 +6,7 @@ import { ConfigInterface } from './config.interface';
 export class Config<T = Dictionary> implements ConfigInterface<T> {
   private __isInitialized = false;
 
-  constructor(private __path: string, private __defaultValues?: T, private __prettify = false) {
+  constructor(private __path: string, private __defaultValues?: T) {
     this.apply(__defaultValues);
   }
 
@@ -132,13 +132,13 @@ export class Config<T = Dictionary> implements ConfigInterface<T> {
     return !key.startsWith('__') && typeof (this as Dictionary)[key] !== 'function';
   }
 
-  save(prettify: boolean = this.__prettify): ConfigDefinition<T> {
+  save(prettify?: boolean): ConfigDefinition<T> {
     writeFileSync(this.__path, this.toJSON(prettify));
 
     return this as unknown as ConfigDefinition<T>;
   }
 
-  toJSON(prettify: boolean = this.__prettify): string {
+  toJSON(prettify?: boolean): string {
     const object: Dictionary = {};
 
     for (const key in this) {
