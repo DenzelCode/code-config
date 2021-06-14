@@ -154,6 +154,10 @@ export class Config<T = Dictionary> implements ConfigInterface<T> {
     }
   }
 
+  toObject(): T {
+    return JSON.parse(this.toJSON());
+  }
+
   exists(): boolean {
     return this.__path && this.__path !== '.' && existsSync(this.__path);
   }

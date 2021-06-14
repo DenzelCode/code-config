@@ -11,6 +11,8 @@ export interface ConfigInterface<T = Dictionary> {
 
   toJSON(prettify?: boolean): string;
 
+  toObject(): T;
+
   remove(key: string): ConfigDefinition<T>;
 
   clear(): ConfigDefinition<T>;
