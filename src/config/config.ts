@@ -134,8 +134,10 @@ export class Config<T = Dictionary> implements ConfigInterface<T> {
   }
 
   save(prettify?: boolean): ConfigDefinition<T> {
-    if (!existsSync(dirname(this.__path))) {
-      mkdirSync(this.__path, { recursive: true });
+    const parentDir = dirname(this.__path));
+
+    if (!existsSync(parentDir)) {
+      mkdirSync(parentDir, { recursive: true });
     }
 
     writeFileSync(this.__path, this.toJSON(prettify));
