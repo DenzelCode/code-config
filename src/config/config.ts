@@ -1,5 +1,6 @@
-import { existsSync, readFileSync, writeFileSync } from 'fs';
+import { existsSync, mkdirSync, readFileSync, writeFileSync } from 'fs';
 import { get, set, defaults } from 'lodash';
+import { dirname } from 'path';
 import { ConfigDefinition, Dictionary } from '../types';
 import { ConfigInterface } from './config.interface';
 
@@ -133,6 +134,10 @@ export class Config<T = Dictionary> implements ConfigInterface<T> {
   }
 
   save(prettify?: boolean): ConfigDefinition<T> {
+    if (!existsSync(dirname(this.__path))) {
+      mkdirSync(this.__path, { recursive: true });
+    }
+
     writeFileSync(this.__path, this.toJSON(prettify));
 
     return this as unknown as ConfigDefinition<T>;
