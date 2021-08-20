@@ -67,11 +67,7 @@ console.log(config.hello); // Output: World
 ```typescript
 import { ConfigFactory } from 'code-config';
 
-interface Definition {
-  hello: string
-}
-
-const defaultValue: Definition = {
+const defaultValue = {
   hello: 'World'
 }
 
@@ -84,4 +80,80 @@ config.hello = 'Test';
 config.save();
 
 console.log(config.hello); // Output: Test
+```
+
+
+**Clear a JSON file:**
+
+*method init() will automatically create the file if it doesn't exists.*
+
+```typescript
+import { ConfigFactory } from 'code-config';
+
+const defaultValue = {
+  hello: 'World'
+}
+
+export const config = ConfigFactory.getConfig('path/to/config.json', defaultValue).init();
+
+console.log(config.hello); // Output: World
+
+config.clear();
+
+config.save();
+
+console.log(config.hello); // Output: undefined
+```
+
+
+**Getters:**
+
+*method init() will automatically create the file if it doesn't exists.*
+
+```typescript
+import { ConfigFactory } from 'code-config';
+
+const defaultValue = {
+  hello: 'World',
+  test: {
+    value: 'Result'
+  }
+}
+
+export const config = ConfigFactory.getConfig('path/to/config.json', defaultValue).init();
+
+console.log(config.hello); // Output: World
+console.log(config.test.value); // Output: Result
+
+console.log(config.get('hello')); // Output: World
+console.log(config.get('test.value')); // Output: Result
+
+```
+
+**Setters:**
+
+*method init() will automatically create the file if it doesn't exists.*
+
+```typescript
+import { ConfigFactory } from 'code-config';
+
+const defaultValue = {
+  hello: 'World',
+  test: {
+    value: 'Result'
+  }
+}
+
+export const config = ConfigFactory.getConfig('path/to/config.json', defaultValue).init();
+
+console.log(config.hello); // Output: Hello
+
+config.hello = 'Test';
+
+console.log(config.hello); // Output: Test
+
+config.set('hello', 'Set');
+
+console.log(config.hello); // Output: Set
+
 ```
