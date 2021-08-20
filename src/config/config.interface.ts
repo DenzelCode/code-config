@@ -26,4 +26,6 @@ export interface ConfigInterface<T = Dictionary> {
   load(create: boolean): ConfigDefinition<T>;
 
   prettify(): ConfigDefinition<T>;
+
+  normalize(): ConfigDefinition<T>;
 }

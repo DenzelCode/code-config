@@ -8,6 +8,7 @@
   "author": "Denzel Code",
   "license": "MIT",
   "dependencies": {
+    "code-config": "^1.0.31",
     "lodash": "^4.17.21"
   },
   "devDependencies": {
