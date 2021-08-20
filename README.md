@@ -1,5 +1,5 @@
 # code-config
-A type friendly JSON configuration file for NodeJS.
+A type friendly JSON configuration file manager for NodeJS.
 
 ## Why code-config?
 
