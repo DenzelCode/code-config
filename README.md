@@ -41,8 +41,6 @@ console.log(config.test); // Should throw a type error.
 
 **Getting JSON file and place a default value if it doesn't exist:**
 
-*method init() will automatically create the file if it doesn't exists.*
-
 ```typescript
 import { ConfigFactory } from 'code-config';
 
@@ -61,8 +59,6 @@ console.log(config.hello); // Output: World
 
 
 **Saving a JSON file:**
-
-*method init() will automatically create the file if it doesn't exists.*
 
 ```typescript
 import { ConfigFactory } from 'code-config';
@@ -85,8 +81,6 @@ console.log(config.hello); // Output: Test
 
 **Clear a JSON file:**
 
-*method init() will automatically create the file if it doesn't exists.*
-
 ```typescript
 import { ConfigFactory } from 'code-config';
 
@@ -107,8 +101,6 @@ console.log(config.hello); // Output: undefined
 
 
 **Getters:**
-
-*method init() will automatically create the file if it doesn't exists.*
 
 ```typescript
 import { ConfigFactory } from 'code-config';
@@ -131,8 +123,6 @@ console.log(config.get('test.value')); // Output: Result
 ```
 
 **Setters:**
-
-*method init() will automatically create the file if it doesn't exists.*
 
 ```typescript
 import { ConfigFactory } from 'code-config';
