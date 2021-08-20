@@ -21,6 +21,7 @@ Note: add `--save` if you are using npm < 5.0.0
 ## Examples
 
 Getting a JSON configuration file from a path:
+
 method init() will automatically create the file if it doesn't exists.
 
 ```typescript
