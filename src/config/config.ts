@@ -7,10 +7,14 @@ import { ConfigInterface } from './config.interface';
 export class Config<T = Dictionary> implements ConfigInterface<T> {
   private __isInitialized = false;
 
-  private _prettify = false;
+  private __prettify = false;
 
   constructor(private __path: string, private __defaultValues?: T) {
     this.apply(__defaultValues);
+  }
+
+  initWithoutCreate() {
+    return this.init(false);
   }
 
   init(create: boolean = true): ConfigDefinition<T> {
@@ -136,13 +140,13 @@ export class Config<T = Dictionary> implements ConfigInterface<T> {
   }
 
   prettify(): ConfigDefinition<T> {
-    this._prettify = true;
+    this.__prettify = true;
 
     return this.getSelf();
   }
 
   normalize(): ConfigDefinition<T> {
-    this._prettify = false;
+    this.__prettify = false;
 
     return this.getSelf();
   }
@@ -154,7 +158,7 @@ export class Config<T = Dictionary> implements ConfigInterface<T> {
       mkdirSync(parentDir, { recursive: true });
     }
 
-    writeFileSync(this.__path, this.toJSON(prettify || this._prettify));
+    writeFileSync(this.__path, this.toJSON(prettify || this.__prettify));
 
     return this.getSelf();
   }
@@ -168,7 +172,7 @@ export class Config<T = Dictionary> implements ConfigInterface<T> {
       }
     }
 
-    if (prettify || this._prettify) {
+    if (prettify || this.__prettify) {
       return JSON.stringify(object, null, '\t');
     } else {
       return JSON.stringify(object);
