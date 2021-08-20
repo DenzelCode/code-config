@@ -1,6 +1,6 @@
 {
   "name": "code-config",
-  "version": "1.0.30",
+  "version": "1.0.31",
   "description": "type friendly json configuration file management",
   "main": "dist/index.js",
   "types": "dist/index.d.js",
