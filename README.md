@@ -17,3 +17,21 @@ Using npm:
 $ npm i code-config
 ```
 Note: add `--save` if you are using npm < 5.0.0
+
+## Examples
+
+Getting a JSON configuration file from a path:
+
+```typescript
+import { ConfigFactory } from 'code-config';
+
+interface Definition {
+  hello: string
+}
+
+export const config = ConfigFactory.getConfig<Definition>('path/to/config.json').initPrettify();
+
+console.log(config.hello); // Should work perfectly.
+
+console.log(config.test); // Should throw a type error.
+```
