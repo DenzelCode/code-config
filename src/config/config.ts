@@ -13,10 +13,6 @@ export class Config<T = Dictionary> implements ConfigInterface<T> {
     this.apply(__defaultValues);
   }
 
-  initWithoutCreate() {
-    return this.init(false);
-  }
-
   init(create: boolean = true): ConfigDefinition<T> {
     if (this.__isInitialized) {
       return this.getSelf();
@@ -29,6 +25,14 @@ export class Config<T = Dictionary> implements ConfigInterface<T> {
     this.__isInitialized = true;
 
     return this.getSelf();
+  }
+
+  initWithoutCreate() {
+    return this.init(false);
+  }
+
+  initPrettify() {
+    return this.initWithoutCreate().prettify().save();
   }
 
   load(create: boolean = true): ConfigDefinition<T> {

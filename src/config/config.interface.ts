@@ -7,6 +7,8 @@ export interface ConfigInterface<T = Dictionary> {
 
   init(create?: boolean): ConfigDefinition<T>;
 
+  initPrettify(): ConfigDefinition<T>;
+
   set(key: string, value: T): ConfigDefinition<T>;
 
   save(prettify?: boolean): ConfigDefinition<T>;
