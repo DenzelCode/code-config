@@ -38,6 +38,7 @@ console.log(config.hello); // Should work perfectly.
 console.log(config.test); // Should throw a type error.
 ```
 
+
 **Getting JSON file and place a default value if it doesn't exist:**
 
 *method init() will automatically create the file if it doesn't exists.*
@@ -57,6 +58,7 @@ export const config = ConfigFactory.getConfig<Definition>('path/to/config.json',
 
 console.log(config.hello); // Output: World
 ```
+
 
 **Saving a JSON file:**
 
