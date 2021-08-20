@@ -7,13 +7,15 @@ import { ConfigInterface } from './config.interface';
 export class Config<T = Dictionary> implements ConfigInterface<T> {
   private __isInitialized = false;
 
+  private _prettify = false;
+
   constructor(private __path: string, private __defaultValues?: T) {
     this.apply(__defaultValues);
   }
 
   init(create: boolean = true): ConfigDefinition<T> {
     if (this.__isInitialized) {
-      return this as unknown as ConfigDefinition<T>;
+      return this.getSelf();
     }
 
     this.apply(this.__defaultValues);
@@ -22,7 +24,7 @@ export class Config<T = Dictionary> implements ConfigInterface<T> {
 
     this.__isInitialized = true;
 
-    return this as unknown as ConfigDefinition<T>;
+    return this.getSelf();
   }
 
   load(create: boolean = true): ConfigDefinition<T> {
@@ -46,7 +48,7 @@ export class Config<T = Dictionary> implements ConfigInterface<T> {
       console.error('An error occurred parsing the config file', this.__path, e);
     }
 
-    return this as unknown as ConfigDefinition<T>;
+    return this.getSelf();
   }
 
   get(key: string) {
@@ -59,17 +61,17 @@ export class Config<T = Dictionary> implements ConfigInterface<T> {
 
   set(key: string, value: T): ConfigDefinition<T> {
     if (!this.isValidKey(key)) {
-      return this as unknown as ConfigDefinition<T>;
+      return this.getSelf();
     }
 
     set(this, key, value);
 
-    return this as unknown as ConfigDefinition<T>;
+    return this.getSelf();
   }
 
   remove(key: string): ConfigDefinition<T> {
     if (!this.isValidKey(key)) {
-      return this as unknown as ConfigDefinition<T>;
+      return this.getSelf();
     }
 
     const properties = key.split('.');
@@ -96,7 +98,7 @@ export class Config<T = Dictionary> implements ConfigInterface<T> {
       values = values[segment];
     });
 
-    return this as unknown as ConfigDefinition<T>;
+    return this.getSelf();
   }
 
   clear(): ConfigDefinition<T> {
@@ -108,12 +110,12 @@ export class Config<T = Dictionary> implements ConfigInterface<T> {
       this.remove(key);
     }
 
-    return this as unknown as ConfigDefinition<T>;
+    return this.getSelf();
   }
 
   apply(object: T): ConfigDefinition<T> {
     if (!object) {
-      return this as unknown as ConfigDefinition<T>;
+      return this.getSelf();
     }
 
     object = defaults(object, this.__defaultValues ?? {});
@@ -126,11 +128,23 @@ export class Config<T = Dictionary> implements ConfigInterface<T> {
       (this as Dictionary)[key] = object[key];
     }
 
-    return this as unknown as ConfigDefinition<T>;
+    return this.getSelf();
   }
 
   isValidKey(key: string): boolean {
     return !key.startsWith('__') && typeof (this as Dictionary)[key] !== 'function';
+  }
+
+  prettify(): ConfigDefinition<T> {
+    this._prettify = true;
+
+    return this.getSelf();
+  }
+
+  normalize(): ConfigDefinition<T> {
+    this._prettify = false;
+
+    return this.getSelf();
   }
 
   save(prettify?: boolean): ConfigDefinition<T> {
@@ -140,9 +154,9 @@ export class Config<T = Dictionary> implements ConfigInterface<T> {
       mkdirSync(parentDir, { recursive: true });
     }
 
-    writeFileSync(this.__path, this.toJSON(prettify));
+    writeFileSync(this.__path, this.toJSON(prettify || this._prettify));
 
-    return this as unknown as ConfigDefinition<T>;
+    return this.getSelf();
   }
 
   toJSON(prettify?: boolean): string {
@@ -154,7 +168,7 @@ export class Config<T = Dictionary> implements ConfigInterface<T> {
       }
     }
 
-    if (prettify) {
+    if (prettify || this._prettify) {
       return JSON.stringify(object, null, '\t');
     } else {
       return JSON.stringify(object);
@@ -173,5 +187,9 @@ export class Config<T = Dictionary> implements ConfigInterface<T> {
     this.__path = path;
 
     this.load(create);
+  }
+
+  private getSelf() {
+    return this as unknown as ConfigDefinition<T>;
   }
 }

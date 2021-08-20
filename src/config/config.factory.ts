@@ -8,7 +8,8 @@ export class ConfigFactory {
     path: string,
     defaultValues?: T,
   ): ConfigDefinition<T> {
-    return (this.storage[path] ||
-      (this.storage[path] = new Config<T>(path, defaultValues))) as unknown as ConfigDefinition<T>;
+    const config = this.storage[path] || (this.storage[path] = new Config<T>(path, defaultValues));
+
+    return config as unknown as ConfigDefinition<T>;
   }
 }
