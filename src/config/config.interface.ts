@@ -3,6 +3,8 @@ import { ConfigDefinition, Dictionary } from '../types';
 export interface ConfigInterface<T = Dictionary> {
   get(key: string): any;
 
+  initWithoutCreate(): ConfigDefinition<T>;
+
   init(create?: boolean): ConfigDefinition<T>;
 
   set(key: string, value: T): ConfigDefinition<T>;
