@@ -57,3 +57,29 @@ export const config = ConfigFactory.getConfig<Definition>('path/to/config.json',
 
 console.log(config.hello); // Output: World
 ```
+
+**Saving a JSON file:**
+
+*method init() will automatically create the file if it doesn't exists.*
+
+```typescript
+import { ConfigFactory } from 'code-config';
+
+interface Definition {
+  hello: string
+}
+
+const defaultValue: Definition = {
+  hello: 'World'
+}
+
+export const config = ConfigFactory.getConfig<Definition>('path/to/config.json', defaultValue).init();
+
+console.log(config.hello); // Output: World
+
+config.hello = 'Test';
+
+config.save();
+
+console.log(config.hello); // Output: Test
+```
