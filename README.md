@@ -20,9 +20,9 @@ Note: add `--save` if you are using npm < 5.0.0
 
 ## Examples
 
-*Getting a JSON configuration file from a path:*
+**Getting a JSON file from a path:**
 
-method init() will automatically create the file if it doesn't exists.
+*method init() will automatically create the file if it doesn't exists.*
 
 ```typescript
 import { ConfigFactory } from 'code-config';
@@ -36,4 +36,24 @@ export const config = ConfigFactory.getConfig<Definition>('path/to/config.json')
 console.log(config.hello); // Should work perfectly.
 
 console.log(config.test); // Should throw a type error.
+```
+
+**Getting JSON file and place a default value if it doesn't exist:**
+
+*method init() will automatically create the file if it doesn't exists.*
+
+```typescript
+import { ConfigFactory } from 'code-config';
+
+interface Definition {
+  hello: string
+}
+
+const defaultValue: Definition = {
+  hello: 'World'
+}
+
+export const config = ConfigFactory.getConfig<Definition>('path/to/config.json', defaultValue).init();
+
+console.log(config.hello); // Output: World
 ```
