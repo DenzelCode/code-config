@@ -21,6 +21,7 @@ Note: add `--save` if you are using npm < 5.0.0
 ## Examples
 
 Getting a JSON configuration file from a path:
+method init() will automatically create the file if it doesn't exists.
 
 ```typescript
 import { ConfigFactory } from 'code-config';
@@ -29,7 +30,7 @@ interface Definition {
   hello: string
 }
 
-export const config = ConfigFactory.getConfig<Definition>('path/to/config.json').initPrettify();
+export const config = ConfigFactory.getConfig<Definition>('path/to/config.json').init();
 
 console.log(config.hello); // Should work perfectly.
 
