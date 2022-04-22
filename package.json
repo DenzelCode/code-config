@@ -16,6 +16,10 @@
     "typescript": "^4.2.4"
   },
   "files": [
-    "/dist"
-  ]
+    "./dist"
+  ],
+  "publishConfig": {
+    "access": "restricted",
+    "directory": "dist"
+  }
 }
